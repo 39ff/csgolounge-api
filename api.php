@@ -29,6 +29,8 @@ foreach($html->find('.matchmain') as $match) {
 	$event = $match->find('.eventm')[0]->plaintext;
 	$time = trim(strip_tags_content($when->innertext));
 	$id = substr($match->find('a')[0]->href, 8);
+        $additional = substr(trim($when->find('span')[$status ? 1 : 0]->plaintext), 4);
+	$result;
 
 	$output[$id]["live"] = $status;
 	$output[$id]["time"] = $time;
@@ -39,7 +41,16 @@ foreach($html->find('.matchmain') as $match) {
 			"name" => $team->find('b')[0]->plaintext,
 			"percent" => $team->find('i')[0]->plaintext
 		);
+
+		if(@$team->parent()->find('img')[0])
+			$result = array("status" => "won", "team" => $key);
 	}
+
+	if($additional)
+		$result = $additional;
+
+	if(isset($result))
+		$output[$id]["result"] = $result;
 }
 
 echo json_encode($output);

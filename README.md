@@ -18,7 +18,11 @@ How output looks like:
             "name":"EnVyUs",   // Name (Team 2)
             "percent":"72%"    // Percent (Team 2)
          }
-      ]
+      ],
+      "result":{  
+         "status":"won",       // Result of the match
+         "team":1              // Team that won
+      }
    }
 }
 ```
