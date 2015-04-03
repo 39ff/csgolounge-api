@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<!-- Install gentoo fgt -->
+<html>
+	<head>
+		<title>csgolounge-api example</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css"  href="http://bootswatch.com/darkly/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class="content">
+			<div class="container">
+				<nav class="navbar navbar-default" role="navigation" style="margin-top: 20px;">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="#">lel</a>
+						</div>
+					</div>
+				</nav>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="well" id="radio_2">
+							<legend>Matches</legend>
+							<table class="table table-striped table-bordered table-condensed">
+								<thead>
+									<tr>
+										<th>Team_1</th>
+										<th>Team_2</th>
+										<th>Time</th>
+										<th>Status</th>
+										<th>Link->csgolounge</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script>
+			function sortTable(table, order) {
+				var asc   = order === 'asc',
+					tbody = table.find('tbody');
+
+				tbody.find('tr').sort(function(a, b) {
+					if (asc) return $('td:last', a).text().localeCompare($('td:last', b).text());
+					else return $('td:last', b).text().localeCompare($('td:last', a).text());
+				}).appendTo(tbody);
+			}
+
+			$.getJSON("./api.php", function(data) {
+				$.each(data, function(key, val) {
+					var live, time, team_1, team_2
+
+					live = val.live
+					time = val.time
+					team_1 = val.teams[0].name + " (" + val.teams[0].percent + ")"
+					team_2 = val.teams[1].name + " (" + val.teams[1].percent + ")"
+					link = "http://csgolounge.com/match?m=" + key
+					status = live ? "Live" : ""
+
+					if(val.result)
+						if(val.result.status == "won")
+							if(val.result.team == 0) team_1 += " [won]"
+							else team_2 += " [won]"
+
+					$("tbody").html($("tbody").html() + "<tr><td>" + team_1 + "</td><td>" + team_2 + "</td><td>" + time + "</td><td>" + status + "</td><td>" + link + "</td></tr>")
+    				});
+
+				sortTable($('table'),'desc');
+			});
+		</script>
+	</body>
+</html>
