@@ -22,7 +22,7 @@ try {
     }
 
     foreach ($m as $d) {
-        $set[] = array('Name'=>$d[1],'Value'=>$d[2]);
+        $set['data'][] = array('Name'=>$d[1],'Value'=>$d[2]);
     }
 
 

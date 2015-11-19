@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="t1"></div>
+<div class="pc1"></div>
+<div class="pc2"></div>
+<div class="t2"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $.getJSON("lounge_subapi.php?mid=6907", function(json){
+            console.log(json);
+
+            $('.pc1').text(json.data[0].Value);
+            $('.pc2').text(json.data[1].Value);
+            $('.t1').text(json.data[0].Name);
+            $('.t2').text(json.data[1].Name);
+
+
+
+        });
+        //http://localhost/csgolounge-api/lounge_subapi.php?mid=6907
+
+
+    });
+</script>
+</body>
+</html>
