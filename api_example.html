@@ -49,7 +49,7 @@
     jQuery.fn.exists = function(){return Boolean(this.length > 0);}
 
     $(document).ready(function(){
-        if ($(selector).exists()) {
+       // if ($(selector).exists()) {
             $('.loading').show();
             $.getJSON("lounge_subapi.php?mid=6907", function (json) {
                 //console.log(json);
@@ -116,7 +116,7 @@
 
 
             });
-        }
+       // }
     });
 </script>
 </body>
